@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hub Personnel</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --surface2: #f0eeea;
+    --border: rgba(0,0,0,0.10);
+    --border2: rgba(0,0,0,0.18);
+    --text: #1a1a18;
+    --text2: #5f5e5a;
+    --text3: #9a9892;
+    --radius-md: 8px;
+    --radius-lg: 14px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1a18;
+      --surface: #242422;
+      --surface2: #2e2e2c;
+      --border: rgba(255,255,255,0.10);
+      --border2: rgba(255,255,255,0.18);
+      --text: #f0eeea;
+      --text2: #a8a6a0;
+      --text3: #5f5e5a;
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding-bottom: .5rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  header h1 {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  header p {
+    font-size: 13px;
+    color: var(--text3);
+    margin-top: 2px;
+  }
+
+  .header-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #1D9E75;
+    flex-shrink: 0;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: .5rem;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .65rem;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .65rem;
+  }
+
+  @media (max-width: 520px) {
+    .grid-3, .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 360px) {
+    .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: .9rem 1rem;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    transition: border-color .18s, background .18s, transform .12s;
+    cursor: pointer;
+  }
+
+  .card:hover {
+    border-color: var(--border2);
+    background: var(--surface2);
+    transform: translateY(-1px);
+  }
+
+  .card:active { transform: translateY(0); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+  }
+
+  .icon-wrap {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .card-sub {
+    font-size: 11px;
+    color: var(--text3);
+    line-height: 1.3;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 999px;
+    align-self: flex-start;
+  }
+
+  .badge i { font-size: 11px; }
+  .badge-ai    { background: #EAF3DE; color: #3B6D11; }
+  .badge-auto  { background: #E6F1FB; color: #185FA5; }
+  .badge-app   { background: #EEEDFE; color: #3C3489; }
+  .badge-tool  { background: #FAEEDA; color: #854F0B; }
+  .badge-web   { background: #fce8f3; color: #993556; }
+  .badge-gray  { background: var(--surface2); color: var(--text3); }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #1D9E75;
+    flex-shrink: 0;
+  }
+
+  .status-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .disabled {
+    opacity: .5;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="header-dot"></div>
+    <div>
+      <h1>Hub Personnel</h1>
+      <p>Raccourcis vers tous les outils</p>
+    </div>
+  </header>
+
+  <!-- IA -->
+  <section>
+    <p class="section-label">Intelligence artificielle</p>
+    <div class="grid-3">
+
+      <a class="card" href="https://chatgpt.com/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#e9f7ee">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08-4.778 2.758a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.993l-2.602 1.5-2.607-1.5z" fill="#10a37f"/></svg>
+          </div>
+          <div>
+            <p class="card-title">GPT</p>
+            <p class="card-sub">v4 Turbo</p>
+          </div>
+        </div>
+        <div class="status-row"><div class="dot"></div><span class="badge badge-ai">Actif</span></div>
+      </a>
+
+      <a class="card" href="https://claude.ai/new" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#fdf0e8">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-4.492 2.527v.478zm8.033 4.906l-2.466-4.22-.172-.043-.13.085v.213l2.464 4.18.304-.215zm-5.44-9.77l-.85.084L3.5 5.497l.78-.433 3.022 6.027zm10.593 4.342l-.375-.14.031-6.88.344-.142v7.162zM15.816 4.937L9.77 2.183l-.116.27 5.601 2.524.56-.04zm5.694 6.9l-.2.34-3.573-1.148-.173-.288.17-.21 3.777 1.306zm-5.95-6.584l4.069 3.462-.147.291-.278.04-4.157-3.543.513-.25zm2.96 10.812l-5.033 3.219-.239-.191v-.303l4.92-3.148.352.423zM4.384 9.862l.326-.87 2.898 1.093-.11.44-.476.062-2.638-.725zm9.593-4.935l.638.584-8.036 8.79-.638-.585 8.036-8.789zm1.382 1.267l.638.584-8.036 8.79-.638-.584 8.036-8.79z" fill="#d97757"/></svg>
+          </div>
+          <div>
+            <p class="card-title">Claude</p>
+            <p class="card-sub">Sonnet 4</p>
+          </div>
+        </div>
+        <div class="status-row"><div class="dot"></div><span class="badge badge-ai">Actif</span></div>
+      </a>
+
+      <a class="card" href="https://gemini.google.com/app?hl=fr" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#e8f0fe">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="gem-g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4285f4"/><stop offset="100%" stop-color="#9b59b6"/></linearGradient></defs><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.19 0 2.32.28 3.33.76L5.76 15.33A7.942 7.942 0 015 12c0-4.41 3.59-8 7-8zm0 14c-1.19 0-2.32-.28-3.33-.76l9.57-9.57c.48 1.01.76 2.14.76 3.33 0 4.41-3.59 8-7 8z" fill="url(#gem-g)"/></svg>
+          </div>
+          <div>
+            <p class="card-title">Gemini</p>
+            <p class="card-sub">v1.5 Pro</p>
+          </div>
+        </div>
+        <div class="status-row"><div class="dot"></div><span class="badge badge-ai">Actif</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Services externes -->
+  <section>
+    <p class="section-label">Services externes</p>
+    <div class="grid-3">
+
+      <a class="card" href="https://mail.google.com/mail/u/0/?hl=fr#inbox" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#fce8e6">
+            <i class="ti ti-mail" style="color:#d44638" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="card-title">Gmail</p>
+            <p class="card-sub">Messagerie</p>
+          </div>
+        </div>
+        <span class="badge badge-tool"><i class="ti ti-inbox" aria-hidden="true"></i> Boîte de réception</span>
+      </a>
+
+      <a class="card" href="https://github.com/dashboard" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#f0f0f0">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2A10 10 0 002 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z" fill="#24292e"/></svg>
+          </div>
+          <div>
+            <p class="card-title">GitHub</p>
+            <p class="card-sub">Dépôts & commits</p>
+          </div>
+        </div>
+        <span class="badge badge-auto"><i class="ti ti-code" aria-hidden="true"></i> Dashboard</span>
+      </a>
+
+      <a class="card" href="https://make.powerautomate.com/environments/Default-68ab5142-2da3-4ba2-8b4d-14a5858d2727/flows" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#e8f1ff">
+            <i class="ti ti-player-play" style="color:#0066cc" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="card-title">Power Automate</p>
+            <p class="card-sub">Automatisations</p>
+          </div>
+        </div>
+        <div class="status-row"><div class="dot"></div><span class="badge badge-auto">Actif</span></div>
+      </a>
+
+      <a class="card" href="https://share.streamlit.io/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#ffeeee">
+            <i class="ti ti-chart-line" style="color:#ff4b4b" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="card-title">Streamlit</p>
+            <p class="card-sub">Hébergement apps</p>
+          </div>
+        </div>
+        <span class="badge badge-tool"><i class="ti ti-cloud" aria-hidden="true"></i> Share</span>
+      </a>
+
+      <!-- Nouveau lien ClickUp -->
+      <a class="card" href="https://app.clickup.com/90121858509/v/g/2kxuwved-512" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#F2E6FF">
+            <i class="ti ti-layout-kanban" style="color:#7B2CBF" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="card-title">ClickUp</p>
+            <p class="card-sub">Espace personnel</p>
+          </div>
+        </div>
+        <span class="badge badge-tool"><i class="ti ti-external-link" aria-hidden="true"></i> Ouvrir</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Apps maison -->
+  <section>
+    <p class="section-label">Apps maison</p>
+    <div class="grid-2">
+
+      <a class="card" href="https://lbfiactivite.streamlit.app/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#e1f5ee">
+            <i class="ti ti-calendar-stats" style="color:#0F6E56" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="card-title">Suivi d'activité hebdo LBFI</p>
+            <p class="card-sub">Streamlit</p>
+          </div>
+        </div>
+        <span class="badge badge-app"><i class="ti ti-external-link" aria-hidden="true"></i> Ouvrir</span>
+      </a>
+
+      <a class="card" href="https://suividestempslbfi-8yuetzd7eshylhevztykfz.streamlit.app/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#e1f5ee">
+            <i class="ti ti-clock" style="color:#0F6E56" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="card-title">Suivi des temps LBFI</p>
+            <p class="card-sub">Streamlit</p>
+          </div>
+        </div>
+        <span class="badge badge-app"><i class="ti ti-external-link" aria-hidden="true"></i> Ouvrir</span>
+      </a>
+
+      <a class="card" href="https://analysedelais.streamlit.app/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#faeeda">
+            <i class="ti ti-chart-dots" style="color:#854F0B" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="card-title">Analyse des délais</p>
+            <p class="card-sub">Streamlit</p>
+          </div>
+        </div>
+        <span class="badge badge-tool"><i class="ti ti-external-link" aria-hidden="true"></i> Ouvrir</span>
+      </a>
+
+      <a class="card" href="https://commercial-wbgz3xutxsf6utt24nynnr.streamlit.app/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#e6f1fb">
+            <i class="ti ti-chart-bar" style="color:#185FA5" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="card-title">Dashboard Commercial</p>
+            <p class="card-sub">Streamlit</p>
+          </div>
+        </div>
+        <span class="badge badge-auto"><i class="ti ti-external-link" aria-hidden="true"></i> Ouvrir</span>
+      </a>
+
+      <a class="card" href="https://lbficommercial.streamlit.app/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#e6f1fb">
+            <i class="ti ti-building-store" style="color:#185FA5" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="card-title">Dashboard LBFI</p>
+            <p class="card-sub">Commercial uniquement</p>
+          </div>
+        </div>
+        <span class="badge badge-auto"><i class="ti ti-external-link" aria-hidden="true"></i> Ouvrir</span>
+      </a>
+
+      <a class="card disabled" href="#" aria-disabled="true">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#f0f0f0">
+            <i class="ti ti-percentage" style="color:#888" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="card-title">Dashboard taux de marge</p>
+            <p class="card-sub">Streamlit</p>
+          </div>
+        </div>
+        <span class="badge badge-gray"><i class="ti ti-clock" aria-hidden="true"></i> Lien manquant</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Sites web -->
+  <section>
+    <p class="section-label">Sites internet</p>
+    <div class="grid-3">
+
+      <a class="card" href="https://www.lbfi-international.com/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#e1f5ee">
+            <i class="ti ti-world" style="color:#0F6E56" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="card-title">LBFI</p>
+            <p class="card-sub">lbfi-international.com</p>
+          </div>
+        </div>
+        <span class="badge badge-web"><i class="ti ti-external-link" aria-hidden="true"></i> Visiter</span>
+      </a>
+
+      <a class="card" href="https://ponceblanc-echantillonnage.fr/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#faeeda">
+            <i class="ti ti-world" style="color:#854F0B" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="card-title">Ponceblanc</p>
+            <p class="card-sub">ponceblanc-echantillonnage.fr</p>
+          </div>
+        </div>
+        <span class="badge badge-web"><i class="ti ti-external-link" aria-hidden="true"></i> Visiter</span>
+      </a>
+
+      <a class="card" href="https://boite.ponceblanc-echantillonnage.fr/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#fce8f3">
+            <i class="ti ti-package" style="color:#993556" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="card-title">Ponceblanc boîtes</p>
+            <p class="card-sub">boite.ponceblanc…</p>
+          </div>
+        </div>
+        <span class="badge badge-web"><i class="ti ti-external-link" aria-hidden="true"></i> Visiter</span>
+      </a>
+
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
