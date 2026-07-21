@@ -39,16 +39,14 @@
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
-    /* Le padding a été déplacé dans .container pour que la bannière touche les bords */
   }
 
-  /* --- NOUVEAU : Style de la bannière --- */
   .banniere {
     width: 100%;
     height: 220px;
     background-image: url('banner-production.jpg.jpg');
     background-size: cover;
-    background-position: center 60%; /* Centre un peu plus bas pour bien voir les mains sur la machine */
+    background-position: center 60%;
     border-bottom: 1px solid var(--border);
   }
 
@@ -58,7 +56,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    padding: 2rem 1rem; /* Remis ici pour aérer le contenu sous la bannière */
+    padding: 2rem 1rem;
   }
 
   header {
@@ -185,7 +183,7 @@
   .badge-app   { background: #EEEDFE; color: #3C3489; }
   .badge-tool  { background: #FAEEDA; color: #854F0B; }
   .badge-web   { background: #fce8f3; color: #993556; }
-  .badge-erp   { background: #f4ebf2; color: #714B67; } /* Nouveau badge pour Odoo */
+  .badge-erp   { background: #f4ebf2; color: #714B67; }
   .badge-gray  { background: var(--surface2); color: var(--text3); }
 
   .dot {
@@ -210,7 +208,6 @@
 </head>
 <body>
 
-<!-- NOUVEAU : La bannière intégrée -->
 <div class="banniere"></div>
 
 <div class="container">
@@ -269,7 +266,7 @@
     </div>
   </section>
 
-  <!-- NOUVEAU : ERP -->
+  <!-- ERP -->
   <section>
     <p class="section-label">ERP</p>
     <div class="grid-3">
@@ -347,7 +344,6 @@
         <span class="badge badge-tool"><i class="ti ti-cloud" aria-hidden="true"></i> Share</span>
       </a>
 
-      <!-- Lien ClickUp -->
       <a class="card" href="https://app.clickup.com/90121858509/v/g/2kxuwved-512" target="_blank" rel="noopener">
         <div class="card-header">
           <div class="icon-wrap" style="background:#F2E6FF">
@@ -361,6 +357,20 @@
         <span class="badge badge-tool"><i class="ti ti-external-link" aria-hidden="true"></i> Ouvrir</span>
       </a>
 
+      <!-- NOUVEAU LIEN MUTUELLE AJOUTÉ ICI -->
+      <a class="card" href="https://auth-espace-assure.sgsante.fr/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <div class="icon-wrap" style="background:#ffebee">
+            <i class="ti ti-heart" style="color:#d32f2f" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="card-title">Mutuelle SG Santé</p>
+            <p class="card-sub">Espace assuré</p>
+          </div>
+        </div>
+        <span class="badge badge-tool"><i class="ti ti-external-link" aria-hidden="true"></i> Ouvrir</span>
+      </a>
+
     </div>
   </section>
 
@@ -369,7 +379,8 @@
     <p class="section-label">Apps maison</p>
     <div class="grid-2">
 
-      <a class="card" href="https://lbfiactivite.streamlit.app/" target="_blank" rel="noopener">
+      <!-- LIEN MIS A JOUR ICI -->
+      <a class="card" href="https://suivitempssemaine.streamlit.app/" target="_blank" rel="noopener">
         <div class="card-header">
           <div class="icon-wrap" style="background:#e1f5ee">
             <i class="ti ti-calendar-stats" style="color:#0F6E56" aria-hidden="true"></i>
